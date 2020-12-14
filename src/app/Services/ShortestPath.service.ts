@@ -6,6 +6,9 @@ import { Injectable } from '@angular/core';
 export class ShortestPath {
 
   INFINITY:number = 9999;
+    myNodes :any[]=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+"A'","B'","C'","D'","E'","F'","G'","H'","I'","J'","K'","L'"
+  ]
     graph:number [][] =[
 
       /*A*/ [0,0.44,1.89,0.10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -43,8 +46,8 @@ export class ShortestPath {
       /*G'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40.48,0,0,0,0],//H'
       /*H'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//
       /*I'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//
-      /*J'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3.16,0,0,0,0,0,0,0,0,0,0,0,0,17.10,0,0],//V 'I
-      /*K'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20.42,28.89,0,0,0,0,0,0,0,0,0,0,0,0,0,0],// V W
+      /*J'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3.16,0,0,0,0,0,0,0,0,0,0,0,0,0,17.10,0,0],//V 'I
+      /*K'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20.42,28.89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],// V W
       /*L'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23.61,0,0,0,0,0,0,0,0,0,0,0,0,0],//X  Error on table missing 'L as a node
     ];
 
@@ -130,16 +133,16 @@ constructor() {
 
     for (i = 0; i < n; i++) {
       if (i != startnode) {
-        console.log("Distance of node", i, "=", distance[i]);
+        // console.log("Distance of node", i, "=", distance[i]);
 
-        console.log("Path=", i);
+        // console.log("Path=", i);
         this.tempObject['nodeid'] = i;
 
         j = i;
         this.tempObject['nodePath'].push(j)
         do {
           j = pred[j];
-          console.log("<-", j);
+         // console.log("<-", j);
           this.tempObject['nodePath'].push(j);
         } while (j != startnode);
 
@@ -151,15 +154,46 @@ constructor() {
 
       }
     }
+
+    //console.log(this.shortestPaths)
+    this.getShortestPaths();
   }
+
    /**
      * getShortestPaths()
      * this method returns an array of all the paths
     */
    public getShortestPaths():any[] {
-    return this.shortestPaths;
-  }
+     let paths:any[] = [0];
 
+     this.shortestPaths
+     .forEach(temp=>{
+
+      let nodeCharecter = this.myNodes[temp.nodeid];
+      let tempPath:any[] =[];
+     // console.log({to:nodeCharecter});
+
+        for(let i =0 ; i < temp.nodePath.length ; i++){
+
+          tempPath.push(this.myNodes[temp.nodePath[i]]);
+
+
+        }
+       // console.log(tempPath)
+
+       paths.push({
+         node:nodeCharecter,
+         path:tempPath.reverse()
+       });
+        tempPath = [];
+      //
+     })
+
+     console.log(paths);
+
+
+    return paths;
+  }
 
   /**
    * getSingleParth

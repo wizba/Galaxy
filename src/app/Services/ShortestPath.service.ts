@@ -160,12 +160,13 @@ constructor() {
     return this.shortestPaths;
   }
 
+
   /**
-   * getSingParth
+   * getSingleParth
    * gets a single path
    * @Param nodeId used to select node with an id from its array
    */
-  public getSingParth(nodeId:number) {
+  public getSingleParth(nodeId:number) {
     return this.shortestPaths[nodeId];
   }
 

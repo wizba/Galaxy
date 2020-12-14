@@ -6,19 +6,7 @@ import { Injectable } from '@angular/core';
 export class ShortestPath {
 
   INFINITY:number = 9999;
-  graph: number[][] = [
-    [0, 2, 6, 0, 0, 0, 0],
-    [2, 0, 0, 5, 0, 0, 0],
-    [6, 0, 0, 8, 0, 0, 0],
-    [0, 5, 8, 0, 10, 15, 0],
-    [0, 0, 0, 10, 0, 6, 2],
-    [0, 0, 0, 15, 6, 0, 6],
-    [0, 0, 0, 0, 2, 6, 0]
-  ];
-
-
-
-    graph2:number [][] =[
+    graph:number [][] =[
 
       /*A*/ [0,0.44,1.89,0.10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       /*B*/ [0,0,0,0,3.45,0,0,2.44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -57,24 +45,26 @@ export class ShortestPath {
       /*I'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//
       /*J'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3.16,0,0,0,0,0,0,0,0,0,0,0,0,17.10,0,0],//V 'I
       /*K'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20.42,28.89,0,0,0,0,0,0,0,0,0,0,0,0,0,0],// V W
-      /*L'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23.61,0,0,0,0,0,0,0,0,0,0,0,0,0],//X
+      /*L'*/ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23.61,0,0,0,0,0,0,0,0,0,0,0,0,0],//X  Error on table missing 'L as a node
     ];
 
 
 
 
 
-  nodes: number = 7;
+  nodes: number = 38;
   vertices: number = 0;
-  nodeMax = 7; //max node number
-  minimizedGraph:any[]=[];
-  tempObject:any={
+  private nodeMax = 38; //max node number
+  private shortestPaths:any[]=[];
+  private tempObject:any={
     nodeid:'',
     nodePath:[]
   };
 
 
-constructor() {}
+constructor() {
+  console.log({length:this.graph.length})
+}
 
 /**
  *
@@ -153,7 +143,7 @@ constructor() {}
           this.tempObject['nodePath'].push(j);
         } while (j != startnode);
 
-        this.minimizedGraph.push(this.tempObject);
+        this.shortestPaths.push(this.tempObject);
         this.tempObject={
           nodeid:'',
           nodePath:[]
@@ -161,11 +151,23 @@ constructor() {}
 
       }
     }
-
-    console.log(this.minimizedGraph)
+  }
+   /**
+     * getShortestPaths()
+     * this method returns an array of all the paths
+    */
+   public getShortestPaths():any[] {
+    return this.shortestPaths;
   }
 
-
+  /**
+   * getSingParth
+   * gets a single path
+   * @Param nodeId used to select node with an id from its array
+   */
+  public getSingParth(nodeId:number) {
+    return this.shortestPaths[nodeId];
+  }
 
 
 }

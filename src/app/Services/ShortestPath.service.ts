@@ -6,8 +6,50 @@ import { Injectable } from '@angular/core';
 export class ShortestPath {
 
   INFINITY:number = 9999;
-    myNodes :any[]=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+    myNodes :string[]=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
 "A'","B'","C'","D'","E'","F'","G'","H'","I'","J'","K'","L'"
+  ];
+  planetsNames:any[] =[
+    {nodeSymbol:"A",name:"Earth"},
+    {nodeSymbol:"B",name:"Moon"},
+    {nodeSymbol:"C",name:"Jupiter"},
+    {nodeSymbol:"D",name:"Venus"},
+    {nodeSymbol:"E",name:"Mars"},
+    {nodeSymbol:"F",name:"Saturn"},
+    {nodeSymbol:"G",name:"Uranus"},
+    {nodeSymbol:"H",name:"Pluto"},
+    {nodeSymbol:"I",name:"Neptune"},
+    {nodeSymbol:"J",name:"Mercury"},
+    {nodeSymbol:"K",name:"Alpha Centauri"},
+    {nodeSymbol:"L",name:"Luhman 16"},
+    {nodeSymbol:"M",name:"Epsilon Eridani"},
+    {nodeSymbol:"N",name:"Groombridge 34"},
+    {nodeSymbol:"O",name:"Epsilon Indi"},
+    {nodeSymbol:"P",name:"Tau Ceti"},
+    {nodeSymbol:"Q",name:"Kapteyn's star"},
+    {nodeSymbol:"R",name:"Gliese 687"},
+    {nodeSymbol:"S",name:"Gliese 674"},
+    {nodeSymbol:"T",name:"Gliese 876#"},
+    {nodeSymbol:"U",name:"Gliese 832"},
+    {nodeSymbol:"V",name:"Fomalhaut"},
+    {nodeSymbol:"W",name:"Virginis"},
+    {nodeSymbol:"X",name:"HD 102365"},
+    {nodeSymbol:"Y",name:"Gliese 176"},
+    {nodeSymbol:"Z",name:"Gliese 436"},
+    {nodeSymbol:"A'",name:"Pollux"},
+    {nodeSymbol:"B'",name:"Gliese 86"},
+    {nodeSymbol:"C'",name:"HIP 57050"},
+    {nodeSymbol:"D'",name:"Piscium"},
+    {nodeSymbol:"E'",name:"GJ 1214"},
+    {nodeSymbol:"F'",name:"Upsilon Andromedae"},
+    {nodeSymbol:"G'",name:"Gamma Cephei"},
+    {nodeSymbol:"H'",name:"HD 176051"},
+    {nodeSymbol:"I'",name:"Gliese 317"},
+    {nodeSymbol:"J'",name:"HD 38858"},
+    {nodeSymbol:"K'",name:"Ursae Majoris"},
+    {nodeSymbol:"L'",name:"Unknown"}
+
+
   ]
     graph:number [][] =[
 
@@ -56,12 +98,13 @@ export class ShortestPath {
 
 
   nodes: number = 38;
-  vertices: number = 0;
+  //vertices: number = 0;
   private nodeMax = 38; //max node number
   private shortestPaths:any[]=[];
   private tempObject:any={
     nodeid:'',
-    nodePath:[]
+    nodePath:[],
+    distance:0
   };
 
 
@@ -133,29 +176,32 @@ constructor() {
 
     for (i = 0; i < n; i++) {
       if (i != startnode) {
-        // console.log("Distance of node", i, "=", distance[i]);
+        //  console.log("Distance of node", i, "=", distance[i]);
 
-        // console.log("Path=", i);
+        //  console.log("Path=", i);
         this.tempObject['nodeid'] = i;
-
+        this.tempObject['distance'] = distance[i];
         j = i;
         this.tempObject['nodePath'].push(j)
         do {
           j = pred[j];
-         // console.log("<-", j);
+          //console.log("<-", j);
           this.tempObject['nodePath'].push(j);
+
         } while (j != startnode);
 
         this.shortestPaths.push(this.tempObject);
         this.tempObject={
           nodeid:'',
-          nodePath:[]
+          nodePath:[],
+          distance:0
         }
 
       }
     }
 
     //console.log(this.shortestPaths)
+   this.setCharecterPath();
     this.getShortestPaths();
   }
 
@@ -163,36 +209,38 @@ constructor() {
      * getShortestPaths()
      * this method returns an array of all the paths
     */
+   private paths:any[];
    public getShortestPaths():any[] {
-     let paths:any[] = [0];
+     console.log(this.paths);
+    return this.paths;
+  }
 
-     this.shortestPaths
-     .forEach(temp=>{
+  setCharecterPath(){
+    this.paths = [];
+    this.shortestPaths
+    .forEach((temp,index)=>{
+     let nodeCharecter = this.myNodes[temp.nodeid];
+     let distance = temp.distance;
+     let tempPath:any[] =[];
 
-      let nodeCharecter = this.myNodes[temp.nodeid];
-      let tempPath:any[] =[];
-     // console.log({to:nodeCharecter});
-
-        for(let i =0 ; i < temp.nodePath.length ; i++){
-
-          tempPath.push(this.myNodes[temp.nodePath[i]]);
-
-
-        }
-       // console.log(tempPath)
-
-       paths.push({
-         node:nodeCharecter,
-         path:tempPath.reverse()
-       });
-        tempPath = [];
-      //
-     })
-
-     console.log(paths);
+       for(let i =0 ; i < temp.nodePath.length ; i++){
+         tempPath.push(this.myNodes[temp.nodePath[i]]);
+       }
 
 
-    return paths;
+       this.planetsNames[index]['path'] = tempPath.reverse();
+       this.planetsNames[index]['distance'] = distance;
+
+       console.log(this.planetsNames[index]);
+      this.paths.push({
+        node:nodeCharecter,
+        path:tempPath.reverse(),
+        distance:distance
+      });
+       tempPath = [];
+
+    })
+
   }
 
   /**

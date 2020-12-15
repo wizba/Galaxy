@@ -1,7 +1,72 @@
   <!-- Start your project here-->
-  <div class="container">
-    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
+    <!-- Navbar brand -->
+    <div class="btn-group" mdbDropdown>
+      <input type="email" id="defaultLoginFormEmail" class="form-control" placeholder="E-mail" style="height:100%">
+      <button type="button" mdbDropdownToggle mdbBtn color="danger" class="dropdown-toggle dropdown-toggle-split px-3 waves-light"
+        mdbWavesEffect></button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a>
+      </div>
     </div>
-  </div>
+  </mdb-navbar>
+  <!--/.Navbar-->
+
+    <div class="d-flex justify-content-center align-items-center" style="height: 95vh;">
+
+      <div class="row p-5" style="height: 100%;width:100%">
+        <div class="col-6" style="height: 100%; position:relative">
+            <div style="height: 600px;width: 600px;position:absolute;transform: translate(-50%,-50%);top:50%;left:50%">
+              <img src="../assets/img/Earth.png" class="img-fluid" alt="Sample image with waves effect." style="width: 100%;height: 100%;">
+              <div class="h2 text-center mt-4">
+                Earth
+              </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+          <mdb-card style="height: 100%;">
+            <mdb-card-header>From Earth to Earth</mdb-card-header>
+            <mdb-card-body>
+              <table mdbTable>
+                <thead class="black white-text">
+                  <tr>
+                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr mdbTableCol *ngFor="let el of elements">
+                    <th scope="row">{{el.id}}</th>
+                    <td>{{el.first}}</td>
+                    <td>{{el.last}}</td>
+                    <td>{{el.handle}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table mdbTable>
+                <thead class="grey lighten-1 black-text">
+                  <tr>
+                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr mdbTableCol *ngFor="let el of elements">
+                    <th scope="row">{{el.id}}</th>
+                    <td>{{el.first}}</td>
+                    <td>{{el.last}}</td>
+                    <td>{{el.handle}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </mdb-card-body>
+          </mdb-card>
+        </div>
+      </div>
+    </div>
+
   <!-- End your project here-->

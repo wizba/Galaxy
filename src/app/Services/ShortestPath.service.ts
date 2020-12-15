@@ -211,8 +211,8 @@ constructor() {
     */
    private paths:any[];
    public getShortestPaths():any[] {
-     console.log(this.paths);
-    return this.paths;
+     console.log(this.planetsNames);
+    return this.planetsNames;
   }
 
   setCharecterPath(){

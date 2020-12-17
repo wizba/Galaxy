@@ -1,72 +1,84 @@
-  <!-- Start your project here-->
-  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
-    <!-- Navbar brand -->
-    <div class="btn-group" mdbDropdown>
-      <input type="email" id="defaultLoginFormEmail" class="form-control" placeholder="E-mail" style="height:100%">
-      <button type="button" mdbDropdownToggle mdbBtn color="danger" class="dropdown-toggle dropdown-toggle-split px-3 waves-light"
-        mdbWavesEffect></button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
+
+
+<div
+  class="d-flex justify-content-center align-items-center"
+  style="height: 95vh"
+>
+  <div class="row p-5" style="height: 100%; width: 100%">
+    <div class="col-2">
+      <mdb-card class="shadow-sm" style="height: 670px">
+        <mdb-card-header>Select any planet</mdb-card-header>
+        <mdb-card-body style="height: 100%; overflow: auto">
+          <div *ngFor="let item of planetsNames">
+            <ul class="flex-container flex-start mb-3">
+              <li class="country-image">
+                <img src="../assets/img/{{item.name}}.png" alt="" />
+              </li>
+              <li style="width: 80%">{{ item.name }}</li>
+              <li>
+                <div class="custom-control custom-radio">
+                  <input
+                    type="radio"
+                    class="custom-control-input"
+                    id="radio{{item.name}}"
+                    name="defaultExampleRadios"
+                    mdbInput
+
+                    (change)="onChange(item)"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="radio{{item.name}}"
+                  ></label>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- Default unchecked -->
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+    <div class="col-5" style="height: 100%; position: relative">
+      <div
+        style="
+          height: 500px;
+          width: 500px;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          top: 50%;
+          left: 50%;
+        "
+      >
+        <img
+          src={{imagePath}}
+          class="img-fluid"
+          alt="Sample image with waves effect."
+          style="width: 100%; height: 100%"
+        />
+
+        <div class="h2 text-center mt-4"> {{selectedPlanet}}</div>
       </div>
     </div>
-  </mdb-navbar>
-  <!--/.Navbar-->
-
-    <div class="d-flex justify-content-center align-items-center" style="height: 95vh;">
-
-      <div class="row p-5" style="height: 100%;width:100%">
-        <div class="col-6" style="height: 100%; position:relative">
-            <div style="height: 600px;width: 600px;position:absolute;transform: translate(-50%,-50%);top:50%;left:50%">
-              <img src="../assets/img/Earth.png" class="img-fluid" alt="Sample image with waves effect." style="width: 100%;height: 100%;">
-              <div class="h2 text-center mt-4">
-                Earth
+    <div class="col-5">
+      <mdb-card class="shadow-sm" style="height: 100%">
+        <mdb-card-header>From Earth to {{selectedPlanet}}</mdb-card-header>
+        <mdb-card-body>
+         <div class="row" style=" height: 60%;">
+           <div class="col-3" style="background-color: #bdbdbd;">
+              <div *ngFor="let item of titleColumn" class="my-3 h5" style="color: #303030;">
+                {{item}}
               </div>
+           </div>
+           <div class="col-9" style="background-color: #e0e0e0;">
+            <div *ngFor="let item of planetData" class="my-3 h5" style="color: #303030;">
+              {{item}}
             </div>
-
-        </div>
-        <div class="col-6">
-          <mdb-card style="height: 100%;">
-            <mdb-card-header>From Earth to Earth</mdb-card-header>
-            <mdb-card-body>
-              <table mdbTable>
-                <thead class="black white-text">
-                  <tr>
-                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr mdbTableCol *ngFor="let el of elements">
-                    <th scope="row">{{el.id}}</th>
-                    <td>{{el.first}}</td>
-                    <td>{{el.last}}</td>
-                    <td>{{el.handle}}</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table mdbTable>
-                <thead class="grey lighten-1 black-text">
-                  <tr>
-                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr mdbTableCol *ngFor="let el of elements">
-                    <th scope="row">{{el.id}}</th>
-                    <td>{{el.first}}</td>
-                    <td>{{el.last}}</td>
-                    <td>{{el.handle}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </mdb-card-body>
-          </mdb-card>
-        </div>
-      </div>
+           </div>
+         </div>
+        </mdb-card-body>
+      </mdb-card>
     </div>
+  </div>
+</div>
 
-  <!-- End your project here-->
+<!-- End your project here-->
